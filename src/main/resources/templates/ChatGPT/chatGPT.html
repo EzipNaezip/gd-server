@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interior Request Test</title>
+</head>
+<body>
+<form id="interiorForm">
+    <label for="sentence">Enter your interior request:</label><br>
+    <input type="text" id="sentence" name="sentence"><br>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+<div id="chatLog"></div>
+
+<script>
+    const form = document.getElementById("interiorForm");
+    const chatLog = document.getElementById("chatLog");
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const sentence = document.getElementById("sentence").value;
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "/interior");
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onload = () => {
+            const response = JSON.parse(xhr.responseText);
+            const message = document.createElement("p");
+            message.textContent = `You: ${sentence}`;
+            chatLog.appendChild(message);
+            const reply = document.createElement("p");
+            reply.textContent = `InteriorBot: ${response.response}`;
+            chatLog.appendChild(reply);
+
+        };
+        xhr.send(JSON.stringify({ sentence }));
+    });
+</script>
+</body>
+</html>

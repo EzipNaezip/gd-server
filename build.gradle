@@ -1,0 +1,85 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.0-M2'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.manofsteel'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator' // 모니터링
+	implementation 'org.springframework.boot:spring-boot-starter-web' // 웹 MVC
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // 유효성 검사
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // 템플릿 엔진
+	implementation 'org.springframework.boot:spring-boot-starter-mustache' // 템플릿 엔진
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 개발 도구
+
+	compileOnly 'org.projectlombok:lombok' // 롬복
+	annotationProcessor 'org.projectlombok:lombok' // 롬복
+	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0' // XML 바인딩
+	implementation 'com.google.code.gson:gson:2.10.1' // JSON 라이브러리
+	implementation 'com.squareup.okhttp3:okhttp:4.11.0' // HTTP 클라이언트
+
+	implementation group: 'commons-io', name: 'commons-io', version: '2.12.0' // 파일 I/O
+
+	// Swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0' // 스웨거
+
+	// DB
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client' // MariaDB JDBC 드라이버
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Spring Data JPA
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final' // Bean Validation
+
+	// Firebase
+	implementation 'com.google.firebase:firebase-admin:9.1.1' // Firebase Admin SDK
+	implementation 'com.google.guava:guava:31.1-jre' // Google Guava
+
+	// Querydsl
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta' // Querydsl JPA
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// OAuth
+	implementation 'org.springframework.security:spring-security-core:6.0.2'
+	implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth 2.0 Client
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' // OAuth 2.0 Resource Server
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5' // JWT 라이브러리
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5' // JWT 구현체
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // JWT Jackson 모듈
+
+	// Lucene
+	implementation 'org.apache.lucene:lucene-core:9.6.0' // Lucene
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot Test
+	testImplementation 'org.springframework.security:spring-security-test' // Spring Security Test
+
+	// Moduelmapper
+	implementation 'org.modelmapper:modelmapper:3.1.1' // ModelMapper
+
+	// Thumbnailator
+	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
+
+	// Keyword
+	implementation 'com.github.shin285:KOMORAN:3.3.9'
+
+	//implementation 'band.gosroc1.common:helper'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
